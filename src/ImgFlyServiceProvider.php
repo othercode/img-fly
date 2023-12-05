@@ -3,16 +3,25 @@
 namespace OtherCode\ImgFly;
 
 use Illuminate\Support\ServiceProvider;
+use OtherCode\ImgFly\Contracts\ImgFlyContract;
 
+/**
+ * Class ImgFlyServiceProvider
+ *
+ * @author Unay Santisteban <usantisteban@othercode.es>
+ * @package OtherCode\ImgFly
+ */
 class ImgFlyServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         $this->publishes([
             __DIR__.'/config/imgfly.php' => config_path('imgfly.php'),
-        ]);
+        ], 'config');
 
-        $this->app->bind('ImgFly', function () {
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+
+        $this->app->bind(ImgFlyContract::class, function () {
             return new ImgFly();
         });
     }

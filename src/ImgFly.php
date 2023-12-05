@@ -2,37 +2,32 @@
 
 namespace OtherCode\ImgFly;
 
-class ImgFly
+use OtherCode\ImgFly\Contracts\ImgFlyContract;
+
+class ImgFly implements ImgFlyContract
 {
-    public function routes()
-    {
-        include __DIR__.'../../Routes/web.php';
-    }
-
     /**
-     * Display images in storage/app
+     * Load image create a full url to the image page
      *
-     * @param  string  $image
+     * @param  string  $path
+     * @param  string  $image  default path with url parameters
      * @return string
-     * @deprecated v0.1beta use img()
      */
-    public function imgFly(string $image): string
+    public function loadImg(string $path, string $image): string
     {
-        return url('imgfly/images/'.$image);
+        return url("/imgfly/$path/$image");
     }
 
     /**
      * Display images in storage/app
-     *
      *
      * @param  string  $image
      * @return string
      */
     public function img(string $image): string
     {
-        return url('imgfly/images/'.$image);
+        return $this->loadImg('images', $image);
     }
-
 
     /**
      * Display images from public/img
@@ -47,28 +42,14 @@ class ImgFly
     }
 
     /**
-     * Load image create a full url to the image page
-     *
-     * @param  string  $path
-     * @param  string  $image  default path with url parameters
-     * @return string
-     */
-    public function loadImg(string $path, string $image): string
-    {
-        return url("/imgfly/$path/$image");
-    }
-
-    /**
-     * @param $img
+     * @param  string  $image
      * @param  string  $preset
-     * @param  string  $callBackMethod
+     * @param  string  $method
      * @return mixed
      */
-    public function imgPreset($img, string $preset = 'small', string $callBackMethod = 'img')
+    public function imgPreset(string $image, string $preset = 'small', string $method = 'img')
     {
-        $parameters = config("imgfly.{$preset}");
-        return call_user_func([$this, $callBackMethod], $img.$parameters);
+        $parameters = config("imgfly.$preset");
+        return call_user_func([$this, $method], "$image.$parameters");
     }
-
-
 }
