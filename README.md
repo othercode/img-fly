@@ -1,6 +1,8 @@
 ![Screenshot](/screenshot.jpeg)
 
-# Laravel ImgFly 
+# Laravel ImgFly
+
+> This package was originally created by [shawnsandy](https://github.com/shawnsandy).
 
 ### Dynamically resize images on the Fly in your Laravel App using the [Glide library from thephpleague](http://glide.thephpleague.com/).
 
@@ -18,54 +20,24 @@
 - Composer ready and PSR-2 compliant.
 - [Get more info - glide.thephpleague.com](http://glide.thephpleague.com/)
 
-## Install Glide Laravel
+## Install Package
 
-Via composer repository
+* Run the composer require to install the package:
 
-* Installs using composer repositories add the following to your `composer.json` file
-
+```bash
+composer require othercode/img-fly
 ```
-"repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/shawnsandy/img-fly"
-        }
-    ],
-```
-
-* Run the composer require to install the package
-
-```
-composer require shawnsandy/img-fly
-```
-
-### In Laravel 5.5 and higher the package automatically installs itself. If you are running Laravel  5.4 or earlier please follow the instructions below.
 
 * Add the provider to your `config\app.php` providers.
 
-```
-OtherCode\ImgFly\ImgflyServiceProvider::class,
+```php
+OtherCode\ImgFly\ImgFlyServiceProvider::class,
 ```
 
 * Add the facade to your `config\app.php` alias.
 
-```
-"Imgfly" => OtherCode\ImgFly\Classes\ImgflyFacade::class,
-```
-
-### Routes
-
-* Add the route to your `routes\web.php`
-
-```
-Imgfly::routes();
-```
-
-### Dependencies (required)
-
-- Install the php league Laravel glide package [Info and Instructions](https://github.com/thephpleague/glide-laravel)
-```
-composer require league/glide-laravel
+```php
+'ImgFly' => OtherCode\ImgFly\Facades\ImgFlyFacade::class,
 ```
 
 ## Usage
@@ -73,14 +45,14 @@ composer require league/glide-laravel
 * Display and resize an image from your Storage folder `storage/app/images` directory `w=500` sets the image width to `500`.
 
 
-``` html
-<img src="{{ Imgfly::imgFly('apple-mouse.jpeg?w=500') }}" alt="">
+```html
+<img src="{{ ImgFly::imgFly('apple-mouse.jpeg?w=500') }}" alt="">
 ```
 
 * Display and resize an image from your `public/img` directory `w=500` sets the image width parameter to `500`. Read more on setting additional parameters (height, crop, orientation) [Glide quick reference](http://glide.thephpleague.com/1.0/api/quick-reference/).
 
-``` html
-<img src="{{ Imgfly::imgPublic('hands.jpeg?w=500', 'img') }}" alt="">
+```html
+<img src="{{ ImgFly::imgPublic('hands.jpeg?w=500', 'img') }}" alt="">
 ```
 
 ### Presets
@@ -89,59 +61,34 @@ You can also use preset to dynamically resize image on the fly. Parameters are s
 
 - Publish the config file
 
-
-``` text
-php artisan vendor:publish --tag=imgfly_config
+```bash
+php artisan vendor:publish --tag=config
 ```
 
-- Open and modify the presets
+- Open and modify the presets:
 
-``` php
+```php
 [
-
     "icon" => "?w=60&h=60&fit=crop-center",
-
     "small" => "?w=100&h=100&fit=crop-center",
-
     "thumbnail" => "?w=200&h=200&fit=crop-center",
-
     "medium" => "?w=600&h=400&fit=crop-center",
-
     "large" => "?w=1200&h=600&fit=crop-center",
-
 ];
 ```
 
-- Call the facade `Imgfly::imgPreset(image, preset_key = small, callBackMethod = 'img/imgPublic')` 
+- Call the facade `ImgFly::imgPreset(image, preset)` 
 
-
-``` blade
-<img src="{{ Imgfly::imgPreset('hands.jpg', 'icon') }}" alt="">
-<img src="{{ Imgfly::imgPreset('hands.jpg', 'small') }}" alt="">
-<img src="{{ Imgfly::imgPreset('hands.jpg', 'thumbnail') }}" alt="">
+```html
+<img src="{{ ImgFly::imgPreset('hands.jpg', 'icon') }}" alt="">
+<img src="{{ ImgFly::imgPreset('hands.jpg', 'small') }}" alt="">
+<img src="{{ ImgFly::imgPreset('hands.jpg', 'thumbnail') }}" alt="">
 ```
-
-## Testing
-
-``` bash
-$ composer test
-```
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email shawnsandy04@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email usantisteban@othercode.io instead of using the issue tracker.
 
 ## Credits
 
-- [Shawn Sandy][link-author]
-
-
-### TODO
-- Add image upload ui
-- Add unit test
-
-### License
+- [Shawn Sandy](https://github.com/shawnsandy)

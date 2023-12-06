@@ -12,7 +12,7 @@
     },
     {
       "name": "Unay Santistevan",
-      "email": "j.boggiano@seld.be",
+      "email": "usantisteban@othercode.io",
       "homepage": "https://othercode.io/",
       "role": "Maintainer"
     }
@@ -24,6 +24,7 @@
   },
   "require": {
     "php": "^7.2.5|^8.0",
+    "illuminate/routing": "*",
     "illuminate/support": "*",
     "league/glide-laravel": "^1.0.0"
   },
@@ -36,7 +37,7 @@
         "OtherCode\\ImgFly\\ImgFlyServiceProvider"
       ],
       "aliases": {
-        "Imgfly": "ImgFlyFacade"
+        "ImgFly": "OtherCode\\ImgFly\\Facades\\ImgFlyFacade"
       }
     }
   },
