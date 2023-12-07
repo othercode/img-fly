@@ -8,17 +8,22 @@ use League\Glide\ServerFactory;
 
 class ImgController extends Controller
 {
-    public function __invoke($dir, $photo)
+    public function __invoke($directory, $image)
     {
+        if(!file_exists("$directory/$image")) {
+            $directory = 'assets/img';
+            $image = 'notfound.webp';
+        }
+
         $server = ServerFactory::create([
             'response' => new LaravelResponseFactory(app('request')),
-            'source' => "./$dir/",
-            'cache' => "$dir/",
+            'source' => "./$directory/",
+            'cache' => "$directory/",
             'source_path_prefix' => '/',
             'cache_path_prefix' => '/.cache',
             'base_url' => '/public/'
         ]);
 
-        $server->outputImage($photo, request()->all());
+        $server->outputImage($image, request()->all());
     }
 }

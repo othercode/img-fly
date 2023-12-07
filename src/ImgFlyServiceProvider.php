@@ -19,6 +19,10 @@ class ImgFlyServiceProvider extends ServiceProvider
             __DIR__.'/config/imgfly.php' => config_path('imgfly.php'),
         ], 'config');
 
+        $this->publishes([
+            __DIR__.'/assets' => public_path('assets'),
+        ], 'public');
+
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
 
         $this->app->bind(ImgFlyContract::class, function () {
