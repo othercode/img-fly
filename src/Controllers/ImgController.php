@@ -10,7 +10,7 @@ class ImgController extends Controller
 {
     public function __invoke($directory, $image)
     {
-        if (!file_exists("$directory/$image" || empty($image))) {
+        if (!file_exists("$directory/$image") || empty($image)) {
             $directory = 'assets/img';
             $image = 'notfound.webp';
         }
